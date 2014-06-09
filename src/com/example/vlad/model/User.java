@@ -3,6 +3,8 @@ package com.example.vlad.model;
 import java.io.Serializable;
 
 import javax.persistence.*;
+
+import com.vaadin.data.fieldgroup.FieldGroup;
 @Entity
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +28,10 @@ public class User implements Serializable {
 		this.pass = pass;
 		this.age = age;
 		this.email = email;
+	}
+
+	public User(FieldGroup fg) {
+		//this.
 	}
 
 	public Long getId() {

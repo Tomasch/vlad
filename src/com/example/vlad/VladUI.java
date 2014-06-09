@@ -26,15 +26,18 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.fieldgroup.FieldGroupFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 import com.example.vlad.view.*;
 
 @SuppressWarnings("serial")
@@ -52,6 +55,9 @@ public class VladUI extends UI {
 		//DetailsLayout detailsLayout = new DetailsLayout();
 		final ListLayout listLayout = new ListLayout();
 		final DetailsView detailsView = new DetailsView();
+		Button addBtn = new Button("Add");
+		Button updBtn = new Button("Update");
+		Button delBtn = new Button("Delete");
 		setContent(mainLayout);
 		//setContent(detailsView);
 		
@@ -62,7 +68,45 @@ public class VladUI extends UI {
 		mainLayout.addComponent(listLayout);
 				
 		mainLayout.setMargin(true);
+		HorizontalLayout panelLaout = new HorizontalLayout();
+		detailsView.addComponent(panelLaout);
 		
+		panelLaout.addComponent(addBtn);
+		panelLaout.addComponent(updBtn);
+		panelLaout.addComponent(delBtn);
+		
+		addBtn.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				//listLayout.container.addBean(new User(detailsView.fieldGroup.getField("id")));
+				System.out.println(detailsView.fieldGroup.getField("name").getValue());
+			}
+		});
+		
+		updBtn.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					detailsView.fieldGroup.commit();
+				} catch (CommitException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		delBtn.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Long id = (Long)listLayout.getValue();
+
+				listLayout.container.removeItem(id);
+				
+			}
+		});
 				
 		listLayout.addValueChangeListener(new Property.ValueChangeListener() {
 			

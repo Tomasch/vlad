@@ -16,8 +16,9 @@ public class DetailsView extends VerticalLayout {
 		fieldGroup = new BeanFieldGroup<User>(User.class);
 		fieldGroup.setItemDataSource(new BeanItem<User>(new User()));
         for (Object propertyId : fieldGroup.getUnboundPropertyIds()) {
-        	System.out.println(propertyId);
-            addComponent(fieldGroup.buildAndBind(propertyId));
+        	System.out.println(propertyId.toString());
+        	if(propertyId.toString()!="id".toString())
+        		addComponent(fieldGroup.buildAndBind(propertyId));
         }
         fieldGroup.setItemDataSource(new BeanItem<User>(new User()));
 	}
