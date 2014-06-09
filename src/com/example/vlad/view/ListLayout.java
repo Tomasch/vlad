@@ -28,6 +28,7 @@ public class ListLayout extends Table {
 		container = new BeanContainer<Integer, User>(User.class);
 		container.setBeanIdProperty("id");
 		container.addBean(new User("Tom", "Ja", "tom", "asz", 22, "toom@op.pl"));
+		container.addBean(new User("Tuom", "Jaj", "tjom", "jasz", 282, "j@op.pl"));
 		setContainerDataSource(container);
 	}
 	

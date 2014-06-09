@@ -1,6 +1,7 @@
 package com.example.vlad.model;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import javax.persistence.*;
 
@@ -21,17 +22,13 @@ public class User implements Serializable {
 
 	public User(String name, String surname, String login, String pass,
 			int age, String email) {
-		this.id = 0L;
+		this.id = (new Random()).nextLong();
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
 		this.pass = pass;
 		this.age = age;
 		this.email = email;
-	}
-
-	public User(FieldGroup fg) {
-		//this.
 	}
 
 	public Long getId() {
@@ -80,6 +77,10 @@ public class User implements Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	
+	public String getPass() {
+		return "***********";
 	}
 	
 }

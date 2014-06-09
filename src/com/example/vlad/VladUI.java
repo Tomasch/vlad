@@ -79,8 +79,21 @@ public class VladUI extends UI {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//listLayout.container.addBean(new User(detailsView.fieldGroup.getField("id")));
-				System.out.println(detailsView.fieldGroup.getField("name").getValue());
+				User user = new User(
+						(String)detailsView.fieldGroup.getField("name").getValue(),
+						(String)detailsView.fieldGroup.getField("surname").getValue(),
+						(String)detailsView.fieldGroup.getField("login").getValue(),
+						(String)detailsView.fieldGroup.getField("pass").getValue(),
+						Integer.parseInt((String)detailsView.fieldGroup.getField("age").getValue()),
+						(String)detailsView.fieldGroup.getField("email").getValue()
+						);
+				listLayout.container.addBean(user);
+				System.out.println(user);
+				try {
+					detailsView.fieldGroup.commit();
+				} catch (CommitException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -104,7 +117,7 @@ public class VladUI extends UI {
 				Long id = (Long)listLayout.getValue();
 
 				listLayout.container.removeItem(id);
-				
+				detailsView.fieldGroup.setItemDataSource(new BeanItem<User>(new User()));
 			}
 		});
 				
@@ -114,7 +127,6 @@ public class VladUI extends UI {
 			public void valueChange(ValueChangeEvent event) {
 				BeanItem<User> item = (BeanItem)listLayout.getItem(listLayout.getValue());
 				if(item != null) {
-					System.out.println(item);
 					detailsView.fieldGroup.setItemDataSource(item);
 				}
 				else {
